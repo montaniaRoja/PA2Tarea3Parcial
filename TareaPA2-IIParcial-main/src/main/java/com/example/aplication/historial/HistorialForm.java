@@ -94,6 +94,12 @@ public void setParameter(BeforeEvent event, String parameter) {
 	
 }
 
+public void setDniPacienteValue(String parametroRecibido) {
+	this.dniPaciente.setValue(parametroRecibido);
+	// TODO Auto-generated method stub
+	
+}
+
     
   
 }

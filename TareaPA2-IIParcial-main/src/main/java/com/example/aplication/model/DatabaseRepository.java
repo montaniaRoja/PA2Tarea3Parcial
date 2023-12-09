@@ -2,6 +2,8 @@ package com.example.aplication.model;
 
 import com.example.aplication.data.Historial;
 import com.example.aplication.data.HistorialResponse;
+import com.example.aplication.data.Medico;
+import com.example.aplication.data.MedicoResponse;
 import com.example.aplication.data.Paciente;
 import com.example.aplication.data.PacientesResponse;
 
@@ -44,5 +46,21 @@ public interface DatabaseRepository {
 	})
 	@POST("/pls/apex/adolfouth/hospital/historial")
 	Call<ResponseBody> crearHistorial(@Body Historial historial);
+	
+	
+	@Headers({
+	    "Accept: application/json",
+	    "User-Agent: Retrofit-Sample-App"
+	})
+	@POST("/pls/apex/adolfouth/hospital/medicos")
+	Call<ResponseBody> crearMedico(@Body Medico nuevo);
+	
+	@Headers({
+	    "Accept: application/json",
+	    "User-Agent: Retrofit-Sample-App"
+	})
+	@GET("/pls/apex/adolfouth/hospital/medicos")
+	Call<MedicoResponse> consultarMedico();
+	
 
 }

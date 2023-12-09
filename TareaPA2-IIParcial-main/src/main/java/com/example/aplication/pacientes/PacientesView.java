@@ -65,7 +65,10 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
         form.datePicker.clear();
         form.setVisible(true);
         editPaciente(new Paciente());
-    }
+        
+       
+        
+    }	
     
    
 	private void configureForm() {
@@ -172,6 +175,7 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
 		try {
     			 		
 	    	controlador.crearPacientes(paciente);
+	    	controlador.consultarPacientes();
 	    		
 	    	} catch (Exception ex) {
 	            

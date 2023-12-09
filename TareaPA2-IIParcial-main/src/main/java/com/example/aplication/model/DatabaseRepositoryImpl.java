@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.example.aplication.data.Historial;
 import com.example.aplication.data.HistorialResponse;
+import com.example.aplication.data.Medico;
+import com.example.aplication.data.MedicoResponse;
 import com.example.aplication.data.Paciente;
 import com.example.aplication.data.PacientesResponse;
 
@@ -63,6 +65,22 @@ public class DatabaseRepositoryImpl {
 		Response<ResponseBody> response=call.execute();
 		return response.isSuccessful();
 		
+	}
+
+	public MedicoResponse consultarMedico() throws IOException {
+		Call<MedicoResponse> call=client.getDatabase().consultarMedico();
+		Response<MedicoResponse> response=call.execute();
+		if(response.isSuccessful()) {
+			return response.body();
+		}else {
+			return null;
+		}
+	}
+
+	public boolean crearMedico(Medico nuevo) throws IOException {
+		Call<ResponseBody> call=client.getDatabase().crearMedico(nuevo);
+		Response<ResponseBody> response=call.execute();
+		return response.isSuccessful();
 	}
 	
 	

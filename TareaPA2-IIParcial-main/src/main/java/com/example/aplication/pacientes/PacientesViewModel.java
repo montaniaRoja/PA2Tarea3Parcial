@@ -9,6 +9,8 @@ public interface PacientesViewModel {
 	void mostrarPacientesEnGrid(List<Paciente> items);
 
 	void mostrarMensaje(String string);
+
+	
 	
 	
 

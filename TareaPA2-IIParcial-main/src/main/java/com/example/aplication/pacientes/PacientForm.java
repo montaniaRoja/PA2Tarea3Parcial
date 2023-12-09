@@ -1,8 +1,6 @@
 package com.example.aplication.pacientes;
 
 
-import com.example.aplication.controller.PacientesInteractor;
-import com.example.aplication.controller.PacientesInteractorImpl;
 import com.example.aplication.data.Paciente;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
@@ -41,6 +39,7 @@ public class PacientForm extends FormLayout {
   Button close = new Button("Cancel");
   Button appmnt=new Button("Citas");
   
+  
   BeanValidationBinder<Paciente> binder = new BeanValidationBinder<>(Paciente.class);
 
  
@@ -56,6 +55,11 @@ public class PacientForm extends FormLayout {
     binder.bindInstanceFields(this); 
     genero.setItems(generos);
     add(dNi,firstName,lastName,datePicker,genero,direccion,telefono,responsable,createButtonsLayout());
+    appmnt.setEnabled(false);
+    dNi.addValueChangeListener(event -> {
+       
+        appmnt.setEnabled(!event.getValue().isBlank());
+    });
     
     
   }

@@ -32,11 +32,13 @@ import com.example.aplication.inicio.MainLayout;
 @PageTitle("Historial | Hospital CRM")
 public class HistorialView  extends VerticalLayout implements HasUrlParameter<String>, HistorialViewModel, BeforeEnterObserver {
 	
+	private static final long serialVersionUID = 1L;
+
 	Grid<Historial> grid = new Grid<>(Historial.class);
 		
     TextField filterText = new TextField();
     HistorialForm form;
-   
+    String parametroRecibido;
     
     private static HistorialInteractor controlador;
     private List<Historial> elementos;
@@ -67,12 +69,17 @@ public class HistorialView  extends VerticalLayout implements HasUrlParameter<St
         removeClassName("editing");
 		
 	}
-   
+    
 	
 	
 	private void configureForm() {
+		
+		System.out.println("configuracion de formulario");
+		System.out.println(parametroRecibido);
     	form = new HistorialForm(); 
-        form.setWidth("25em");
+    	form.setWidth("25em");
+    	
+    	
 		
 		
 	}
@@ -84,7 +91,7 @@ public class HistorialView  extends VerticalLayout implements HasUrlParameter<St
         grid.getColumns().forEach(col -> col.setAutoWidth(true)); 
     }
 	
-	
+	/*
 	public void editHistorial(Historial historial) { 
         if (historial == null) {
             closeEditor();
@@ -96,7 +103,7 @@ public class HistorialView  extends VerticalLayout implements HasUrlParameter<St
         }
     }
     
-	  
+	  */
     
     private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(grid, form );
@@ -149,6 +156,7 @@ public class HistorialView  extends VerticalLayout implements HasUrlParameter<St
     			 		
 	    	controlador.crearHistorial(historial);
 	    	System.out.println("linea 182 guardar historial");
+	    	controlador.consultarHistorial();
 	    		
 	    	} catch (Exception ex) {
 	            
@@ -163,8 +171,9 @@ public class HistorialView  extends VerticalLayout implements HasUrlParameter<St
 
 	@Override
 	public void setParameter(BeforeEvent event, String parameter) {
-		// TODO Auto-generated method stub
-		
+		 parametroRecibido=(String.format("%s", parameter));
+		 System.out.println(parametroRecibido);
+		 form.setDniPacienteValue(parametroRecibido);
 	}
 	
 	

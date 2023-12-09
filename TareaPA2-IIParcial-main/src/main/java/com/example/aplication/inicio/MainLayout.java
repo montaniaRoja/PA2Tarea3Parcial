@@ -10,10 +10,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import com.example.aplication.medicos.*;
 
 public class MainLayout extends AppLayout { 
 
-    public MainLayout() {
+    private static final long serialVersionUID = 1L;
+
+	public MainLayout() {
         createHeader();
         createDrawer();
     }
@@ -39,7 +42,8 @@ public class MainLayout extends AppLayout {
     private void createDrawer() {
         addToDrawer(new VerticalLayout( 
                 new RouterLink("Inicio", ListViewModel.class),
-                new RouterLink("Pacientes", PacientesView.class)
+                new RouterLink("Pacientes", PacientesView.class),
+                new RouterLink("Medicos", MedicosView.class)
                 //new RouterLink("Historial", HistorialView.class)
         ));
     }
