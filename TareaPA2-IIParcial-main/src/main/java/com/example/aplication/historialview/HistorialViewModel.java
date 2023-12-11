@@ -1,4 +1,4 @@
-package com.example.aplication.historial;
+package com.example.aplication.historialview;
 
 import java.util.List;
 

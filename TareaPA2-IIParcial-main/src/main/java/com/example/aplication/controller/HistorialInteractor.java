@@ -4,7 +4,7 @@ import com.example.aplication.data.Historial;
 
 public interface HistorialInteractor {
 
-	void consultarHistorial();
+	void consultarHistorial(String dni);
 
 	void crearHistorial(Historial historial);
 

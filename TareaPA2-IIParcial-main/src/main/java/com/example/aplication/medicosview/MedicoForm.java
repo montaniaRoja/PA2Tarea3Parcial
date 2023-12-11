@@ -1,8 +1,8 @@
-package com.example.aplication.medicos;
+package com.example.aplication.medicosview;
 
 import com.example.aplication.data.Medico;
 import com.example.aplication.data.Paciente;
-import com.example.aplication.pacientes.PacientesView;
+import com.example.aplication.pacientesview.PacientesView;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -28,7 +28,7 @@ public class MedicoForm extends FormLayout{
 	  Button save = new Button("Save");
 	  Button update = new Button("Update");
 	  Button close = new Button("Cancel");
-	  Button appmnt=new Button("Citas");
+	  Button borrar=new Button("Delete");
 	  
 	  BeanValidationBinder<Medico> binder = new BeanValidationBinder<>(Medico.class);
 	
@@ -48,13 +48,13 @@ public class MedicoForm extends FormLayout{
 		    save.addThemeVariants(ButtonVariant.LUMO_PRIMARY); 
 		    update.addThemeVariants(ButtonVariant.LUMO_ERROR);
 		    close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
-		    appmnt.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
+		    borrar.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
 		    
 		    save.addClickListener(e -> medicoCrear());
 		       
 		        
 		    close.addClickListener(e->limpiarFormulario());
-		    appmnt.addClickListener(e -> { 
+		    borrar.addClickListener(e -> { 
 		    	
 		    	agregarHistorial();
 		    	
@@ -66,7 +66,7 @@ public class MedicoForm extends FormLayout{
 		    save.addClickShortcut(Key.ENTER); 
 		    close.addClickShortcut(Key.ESCAPE);
 
-		    return new HorizontalLayout(save, update, close, appmnt); 
+		    return new HorizontalLayout(save, update, close, borrar); 
 		  }
 	  
 	  private Object limpiarFormulario() {

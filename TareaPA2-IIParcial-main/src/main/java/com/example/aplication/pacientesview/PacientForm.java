@@ -1,4 +1,4 @@
-package com.example.aplication.pacientes;
+package com.example.aplication.pacientesview;
 
 
 import com.example.aplication.data.Paciente;
@@ -27,7 +27,7 @@ public class PacientForm extends FormLayout {
   
   
   
-  String generos[]= {"Masculino","Femenino","Prefiero no decirlo"};
+  String generos[]= {"Masculino","Femenino"};
   ComboBox<String> genero = new ComboBox<>("Género");
   
   TextField direccion = new TextField("Direccion");
@@ -37,20 +37,24 @@ public class PacientForm extends FormLayout {
   Button save = new Button("Save");
   Button update = new Button("Update");
   Button close = new Button("Cancel");
+  Button borrar = new Button("Delete");
   Button appmnt=new Button("Citas");
   
   
   BeanValidationBinder<Paciente> binder = new BeanValidationBinder<>(Paciente.class);
 
- 
-
-  
-  
-  
+   
   public PacientForm() {
 	  
 	dNi.setId("dNi");
 	appmnt.setId("citas");
+	close.setId("cancelar");
+	firstName.setId("nombre");
+	lastName.setId("apellido");
+	direccion.setId("direccion");
+	
+	
+	
     addClassName("pacient-form");
     binder.bindInstanceFields(this); 
     genero.setItems(generos);
@@ -68,6 +72,7 @@ public class PacientForm extends FormLayout {
     save.addThemeVariants(ButtonVariant.LUMO_PRIMARY); 
     update.addThemeVariants(ButtonVariant.LUMO_ERROR);
     close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+    borrar.addThemeVariants(ButtonVariant.LUMO_ERROR);
     appmnt.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
     
     save.addClickListener(e -> pacienteCrear());
@@ -86,16 +91,14 @@ public class PacientForm extends FormLayout {
     save.addClickShortcut(Key.ENTER); 
     close.addClickShortcut(Key.ESCAPE);
 
-    return new HorizontalLayout(save, update, close, appmnt); 
+    return new HorizontalLayout(save, update, close, appmnt,borrar); 
   }
   
   
   private Object limpiarFormulario() {
-	  
-	
-	 
-	 this.dNi.clear();
-	 this.dNi.clear();
+		 
+	  	this.dNi.clear();
+	  	this.dNi.clear();
 		this.firstName.clear();
 		this.lastName.clear();
 		this.direccion.clear();
@@ -122,25 +125,25 @@ public class PacientForm extends FormLayout {
 
   public void pacienteCrear() {
 	  try {
-          
-          Paciente paciente=new Paciente();
-   		
-   		paciente.setDni(this.dNi.getValue());
-   		paciente.setNombre(this.firstName.getValue());
-   		paciente.setApellido(this.lastName.getValue());
-   		paciente.setFechaNac(this.datePicker.getValue().toString());
-   		paciente.setGenero(this.genero.getValue());
-   		paciente.setDireccion(this.direccion.getValue());
-   		paciente.setTelefono(this.telefono.getValue());
-   		paciente.setResponsable(this.responsable.getValue());
-
-           
-           PacientesView.nuevoPaciente(paciente);
-           
-       } catch (Exception ex) {
-           ex.printStackTrace();
-           Notification.show("Error al guardar el paciente: " + ex.getMessage(), 3000, Notification.Position.TOP_CENTER);
-       }
-  }
+		  
+          	
+			Paciente paciente=new Paciente();
+	   		paciente.setDni(this.dNi.getValue());
+	   		paciente.setNombre(this.firstName.getValue());
+	   		paciente.setApellido(this.lastName.getValue());
+	   		paciente.setFechaNac(this.datePicker.getValue().toString());
+	   		paciente.setGenero(this.genero.getValue());
+	   		paciente.setDireccion(this.direccion.getValue());
+	   		paciente.setTelefono(this.telefono.getValue());
+	   		paciente.setResponsable(this.responsable.getValue());
+	   		
+	   		PacientesView.nuevoPaciente(paciente);
+	   		limpiarFormulario();
+          	
+	       } catch (Exception ex) {
+	           ex.printStackTrace();
+	           Notification.show("Error al guardar el paciente: " + ex.getMessage(), 3000, Notification.Position.TOP_CENTER);
+	       }
+	  }
   
 }

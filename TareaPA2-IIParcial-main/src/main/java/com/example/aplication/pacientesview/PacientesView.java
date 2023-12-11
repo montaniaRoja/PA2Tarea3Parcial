@@ -1,6 +1,7 @@
-package com.example.aplication.pacientes;
+package com.example.aplication.pacientesview;
 
 import com.vaadin.flow.component.Component;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
@@ -22,6 +23,13 @@ import com.example.aplication.controller.PacientesInteractor;
 import com.example.aplication.controller.PacientesInteractorImpl;
 import com.example.aplication.data.*;
 import com.example.aplication.inicio.MainLayout;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.router.Route;
 
 
 @Route(value = "pacientes", layout = MainLayout.class)
@@ -32,21 +40,21 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
 	Grid<Paciente> grid = new Grid<>(Paciente.class);
 	TextField filterText = new TextField();
     PacientForm form;
-    private static PacientesInteractor controlador;
+    private static PacientesInteractor controladorPac;
     private List<Paciente> elementos;
-    
+    private Span status;
     
     public PacientesView() {
         addClassName("list-view"); 
         setSizeFull();
         configureGrid(); 
         configureForm();
-        controlador=new PacientesInteractorImpl(this);
+        controladorPac=new PacientesInteractorImpl(this);
         this.setElementos(new ArrayList<>());
         add(getToolbar(), getContent()); 
             
     
-        controlador.consultarPacientes(); //ESTE ES PARA traer los pacientes desde oracle
+        controladorPac.consultarPacientes(); //ESTE ES PARA traer los pacientes desde oracle
         
         closeEditor();
     }
@@ -73,7 +81,7 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
    
 	private void configureForm() {
     	form = new PacientForm(); 
-        form.setWidth("25em");
+        form.setWidth("35em");
         
 		// TODO Auto-generated method stub
 		
@@ -100,33 +108,58 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
             closeEditor();
         } else {
            //form.setPaciente(paciente);//aqui llenamos el formulario con los datos del paciente pero como no me funciono lo hice con todos los campos
-            form.dNi.setValue(paciente.getDni());
-            form.firstName.setValue(paciente.getNombre());
-            form.lastName.setValue(paciente.getApellido());
-            
-          
+           form.dNi.setValue(paciente.getDni());
+           form.firstName.setValue(paciente.getNombre());
+           form.lastName.setValue(paciente.getApellido());
            form.datePicker.setValue(LocalDate.parse(paciente.getFecha()));// estos campos se agregaron manualmente
            form.genero.setValue(paciente.getGenero());
            form.direccion.setValue(paciente.getDireccion());
            form.telefono.setValue(paciente.getTelefono());
            form.responsable.setValue(paciente.getResponsable());
            
+           String dni=form.dNi.getValue();
            
            form.setVisible(true);
-            addClassName("editing");
+          
+          form.update.addClickListener(e->{
+        	Paciente existente=new Paciente();
+        	existente.setDni(form.dNi.getValue());
+  	   		existente.setNombre(form.firstName.getValue());
+  	   		existente.setApellido(form.lastName.getValue());
+  	   		existente.setFechaNac(form.datePicker.getValue().toString());
+  	   		existente.setGenero(form.genero.getValue());
+  	   		existente.setDireccion(form.direccion.getValue());
+  	   		existente.setTelefono(form.telefono.getValue());
+  	   		existente.setResponsable(form.responsable.getValue());
+        	       	  
+        	controladorPac.actualizarPacientes(existente);
+        	controladorPac.consultarPacientes();
+        	  
+          });
+          
+          form.borrar.addClickListener(e->{
+        	  
+        	  
+        	  controladorPac.eliminarPacientes(dni);
+        	  controladorPac.consultarPacientes();
+          });
+          
+          
+          addClassName("editing");
+         
         }
     }
 	
 	
 	private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Filtrar por nombre...");
-        filterText.setClearButtonVisible(true);
-        filterText.setValueChangeMode(ValueChangeMode.LAZY); 
+       // filterText.setPlaceholder("Filtrar por nombre...");
+       // filterText.setClearButtonVisible(true);
+       // filterText.setValueChangeMode(ValueChangeMode.LAZY); 
 
         Button addPacienteButton = new Button("Agregar Paciente");
         addPacienteButton.setId("addP");
         addPacienteButton.addClickListener(click -> addPaciente());
-        var toolbar = new HorizontalLayout(filterText, addPacienteButton); 
+        var toolbar = new HorizontalLayout(addPacienteButton); 
         toolbar.addClassName("toolbar"); 
         return toolbar;
     }
@@ -174,8 +207,8 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
 	public static void nuevoPaciente(Paciente paciente) {
 		try {
     			 		
-	    	controlador.crearPacientes(paciente);
-	    	controlador.consultarPacientes();
+	    	controladorPac.crearPacientes(paciente);
+	    	controladorPac.consultarPacientes();
 	    		
 	    	} catch (Exception ex) {
 	            
@@ -187,9 +220,9 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
 		
 		
 	}
+	
+	
+	
 
 	
 }
-	
-
-

@@ -1,4 +1,4 @@
-package com.example.aplication.historial;
+package com.example.aplication.historialview;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.grid.Grid;
@@ -57,8 +57,8 @@ public class HistorialView  extends VerticalLayout implements HasUrlParameter<St
         this.setElementos(new ArrayList<>());
         
        add(getContent()); 
-
-       controlador.consultarHistorial();
+       	
+       //controlador.consultarHistorial();
        
        closeEditor();
     }
@@ -74,8 +74,8 @@ public class HistorialView  extends VerticalLayout implements HasUrlParameter<St
 	
 	private void configureForm() {
 		
-		System.out.println("configuracion de formulario");
-		System.out.println(parametroRecibido);
+		
+		System.out.println("configguracion formualrio "+parametroRecibido);
     	form = new HistorialForm(); 
     	form.setWidth("25em");
     	
@@ -155,8 +155,10 @@ public class HistorialView  extends VerticalLayout implements HasUrlParameter<St
 		try {
     			 		
 	    	controlador.crearHistorial(historial);
-	    	System.out.println("linea 182 guardar historial");
-	    	controlador.consultarHistorial();
+	    	
+	    	String dni=historial.getPaciente_id();
+	    		    	
+	    	controlador.consultarHistorial(dni);
 	    		
 	    	} catch (Exception ex) {
 	            
@@ -172,8 +174,10 @@ public class HistorialView  extends VerticalLayout implements HasUrlParameter<St
 	@Override
 	public void setParameter(BeforeEvent event, String parameter) {
 		 parametroRecibido=(String.format("%s", parameter));
-		 System.out.println(parametroRecibido);
+		 System.out.println("la identidad recibida es "+parametroRecibido);
 		 form.setDniPacienteValue(parametroRecibido);
+		 controlador.consultarHistorial(parametroRecibido);
+		 
 	}
 	
 	

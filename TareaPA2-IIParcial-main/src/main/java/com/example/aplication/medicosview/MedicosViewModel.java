@@ -1,4 +1,4 @@
-package com.example.aplication.medicos;
+package com.example.aplication.medicosview;
 
 import java.util.List;
 

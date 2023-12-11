@@ -5,8 +5,7 @@ import java.io.IOException;
 import com.example.aplication.data.Paciente;
 import com.example.aplication.data.PacientesResponse;
 import com.example.aplication.model.DatabaseRepositoryImpl;
-import com.example.aplication.pacientes.PacientesView;
-import com.example.aplication.pacientes.PacientesViewModel;
+import com.example.aplication.pacientesview.PacientesViewModel;
 
 public class PacientesInteractorImpl implements PacientesInteractor{
 	
@@ -53,6 +52,44 @@ public class PacientesInteractorImpl implements PacientesInteractor{
 		}catch(IOException e) {
 			
 		}
+		
+	}
+
+	@Override
+	public void actualizarPacientes(Paciente existente) {
+		try {
+			this.modelo.actualizarPacientes(existente);
+			boolean respuesta=this.modelo.actualizarPacientes(existente);
+			if(respuesta) {
+				this.vista.mostrarMensaje("Paciente ha sido actualizado");
+			}
+			else {
+				this.vista.mostrarMensaje("Fallo al actualizar el paciente");
+			}
+			
+		}catch(IOException e) {
+			
+		}
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminarPacientes(String dni) {
+		try {
+			this.modelo.eliminarPacientes(dni);
+			boolean respuesta=this.modelo.eliminarPacientes(dni);
+			if(respuesta) {
+				this.vista.mostrarMensaje("Datos han sido eliminados");
+			}
+			else {
+				this.vista.mostrarMensaje("Fallo al eliminar datos del paciente");
+			}
+			
+		}catch(IOException e) {
+			
+		}
+		// TODO Auto-generated method stub
 		
 	}
 	

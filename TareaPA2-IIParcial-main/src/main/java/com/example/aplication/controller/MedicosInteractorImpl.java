@@ -3,8 +3,8 @@ import java.io.IOException;
 
 import com.example.aplication.data.Medico;
 import com.example.aplication.data.MedicoResponse;
-import com.example.aplication.medicos.MedicosView;
-import com.example.aplication.medicos.MedicosViewModel;
+import com.example.aplication.medicosview.MedicosView;
+import com.example.aplication.medicosview.MedicosViewModel;
 import com.example.aplication.model.DatabaseRepositoryImpl;
 
 public class MedicosInteractorImpl implements MedicosInteractor{
@@ -53,6 +53,46 @@ public class MedicosInteractorImpl implements MedicosInteractor{
 		}catch(IOException e) {
 			
 		}
+		
+	}
+
+	@Override
+	public void actualizarMedicos(Medico existente) {
+		try {
+			this.modelo.actualizarMedicos(existente);
+			boolean respuesta=this.modelo.actualizarMedicos(existente);
+			if(respuesta) {
+				this.vista.mostrarMensaje("Exito");
+				
+			}
+			else {
+				this.vista.mostrarMensaje("Fallo");
+			}
+			
+		}catch(IOException e) {
+			
+		}
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminarMedicos(String carnet) {
+		try {
+			this.modelo.eliminarMedicos(carnet);
+			boolean respuesta=this.modelo.eliminarMedicos(carnet);
+			if(respuesta) {
+				this.vista.mostrarMensaje("Exito");
+				
+			}
+			else {
+				this.vista.mostrarMensaje("Fallo");
+			}
+			
+		}catch(IOException e) {
+			
+		}
+		// TODO Auto-generated method stub
 		
 	}
 

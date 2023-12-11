@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import com.example.aplication.data.Historial;
 import com.example.aplication.data.HistorialResponse;
-import com.example.aplication.historial.HistorialView;
-import com.example.aplication.historial.HistorialViewModel;
+import com.example.aplication.historialview.HistorialView;
+import com.example.aplication.historialview.HistorialViewModel;
 import com.example.aplication.model.DatabaseRepositoryImpl;
 
 public class HistorialInteractorImpl implements HistorialInteractor {
@@ -22,10 +22,10 @@ public class HistorialInteractorImpl implements HistorialInteractor {
 	}
 
 	@Override
-	public void consultarHistorial() {
+	public void consultarHistorial(String dni) {
 		try {
-			this.modelo.consultarHistorial();
-			HistorialResponse respuesta=this.modelo.consultarHistorial();
+			this.modelo.consultarHistorial(dni);
+			HistorialResponse respuesta=this.modelo.consultarHistorial(dni);
 			this.vista.mostrarHistorialEnGrid(respuesta.getItems());
 		}catch(IOException e) {
 			

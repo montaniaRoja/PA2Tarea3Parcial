@@ -10,11 +10,19 @@ import com.example.aplication.data.PacientesResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Query;
 
 public interface DatabaseRepository {
+	
+	
+	
+	
+	//********Pacientes
 	
 	@Headers({
 	    "Accept: application/json",
@@ -36,8 +44,31 @@ public interface DatabaseRepository {
 	    "Accept: application/json",
 	    "User-Agent: Retrofit-Sample-App"
 	})
+	@PUT("/pls/apex/adolfouth/hospital/pacientes")
+	Call<ResponseBody> actualizarPacientes(@Body Paciente existente);
+	
+	@Headers({
+	    "Accept: application/json",
+	    "User-Agent: Retrofit-Sample-App"
+	})
+	@DELETE("/pls/apex/adolfouth/hospital/pacientes")
+	Call<ResponseBody> eliminarPacientes(@Query("dni") String dni);
+	
+	
+	
+	
+	
+	
+	
+	//*******************Historial
+	
+	
+	@Headers({
+	    "Accept: application/json",
+	    "User-Agent: Retrofit-Sample-App"
+	})
 	@GET("/pls/apex/adolfouth/hospital/historial")
-	Call<HistorialResponse> consultarHistorial();
+	Call<HistorialResponse> consultarHistorial(@Query("dni") String dni);
 
 
 	@Headers({
@@ -46,6 +77,13 @@ public interface DatabaseRepository {
 	})
 	@POST("/pls/apex/adolfouth/hospital/historial")
 	Call<ResponseBody> crearHistorial(@Body Historial historial);
+	
+	
+	
+	
+	
+	
+	//******************Medicos
 	
 	
 	@Headers({
@@ -61,6 +99,21 @@ public interface DatabaseRepository {
 	})
 	@GET("/pls/apex/adolfouth/hospital/medicos")
 	Call<MedicoResponse> consultarMedico();
+	
+	@Headers({
+	    "Accept: application/json",
+	    "User-Agent: Retrofit-Sample-App"
+	})
+	@PUT("/pls/apex/adolfouth/hospital/medicos")
+	Call<ResponseBody> actualizarMedicos(@Body Medico existente);
+	
+	@Headers({
+	    "Accept: application/json",
+	    "User-Agent: Retrofit-Sample-App"
+	})
+	@DELETE("/pls/apex/adolfouth/hospital/medicos")
+	Call<ResponseBody> eliminarMedicos(@Query("carnet") String carnet);
+	
 	
 
 }

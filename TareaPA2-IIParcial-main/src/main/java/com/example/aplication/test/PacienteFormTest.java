@@ -29,22 +29,35 @@ public class PacienteFormTest {
             WebElement addButton = driver.findElement(By.xpath("//vaadin-button[@id='addP']"));
                    
             addButton.click();
+            Thread.sleep(3000);
             
             WebElement textDni = driver.findElement(By.xpath("//vaadin-text-field[@id='dNi']/input"));
             textDni.click();
             textDni.sendKeys("159159159");
+            Thread.sleep(3000);
             
-            WebElement dateButton = driver.findElement(By.xpath("//vaadin-button[@id='citas']"));
+            WebElement textNombre = driver.findElement(By.xpath("//vaadin-text-field[@id='nombre']/input"));
+            textNombre.click();
+            textNombre.sendKeys("Paciente");
+            Thread.sleep(3000);
             
-            dateButton.click();
-            Thread.sleep(5000);
-            WebElement closeButton = driver.findElement(By.xpath("//vaadin-button[@id='close']"));
+            WebElement textApellido = driver.findElement(By.xpath("//vaadin-text-field[@id='apellido']/input"));
+            textApellido.click();
+            textApellido.sendKeys("de Prueba");
+            Thread.sleep(3000);
             
-            closeButton.click();
+            WebElement textDireccion = driver.findElement(By.xpath("//vaadin-text-field[@id='direccion']/input"));
+            textDireccion.click();
+            textDireccion.sendKeys("San Pedro Sula");
+            Thread.sleep(3000);
             
             
-            Thread.sleep(5000);
-
+            
+            
+            WebElement cancelButton = driver.findElement(By.xpath("//vaadin-button[@id='cancelar']"));
+            cancelButton.click();
+            Thread.sleep(3000);
+            
             
 
         } finally {

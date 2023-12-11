@@ -48,9 +48,27 @@ public class DatabaseRepositoryImpl {
 		Response<ResponseBody> response=call.execute();
 		return response.isSuccessful();
 	}
+	
+	
 
-	public HistorialResponse consultarHistorial() throws IOException {
-	    Call<HistorialResponse> call = client.getDatabase().consultarHistorial();
+	public boolean actualizarPacientes(Paciente existente) throws IOException {
+		Call<ResponseBody> call=client.getDatabase().actualizarPacientes(existente);
+		Response<ResponseBody> response=call.execute();
+		return response.isSuccessful();
+	}
+	
+	
+	public boolean eliminarPacientes(String dni) throws IOException {
+		Call<ResponseBody> call=client.getDatabase().eliminarPacientes(dni);
+		Response<ResponseBody> response=call.execute();
+		return response.isSuccessful();
+	}
+	
+	
+	
+
+	public HistorialResponse consultarHistorial(String dni) throws IOException {
+	    Call<HistorialResponse> call = client.getDatabase().consultarHistorial(dni);
 	    Response<HistorialResponse> response = call.execute();
 	    if (response.isSuccessful()) {
 	        return response.body();
@@ -66,6 +84,14 @@ public class DatabaseRepositoryImpl {
 		return response.isSuccessful();
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public MedicoResponse consultarMedico() throws IOException {
 		Call<MedicoResponse> call=client.getDatabase().consultarMedico();
@@ -79,6 +105,19 @@ public class DatabaseRepositoryImpl {
 
 	public boolean crearMedico(Medico nuevo) throws IOException {
 		Call<ResponseBody> call=client.getDatabase().crearMedico(nuevo);
+		Response<ResponseBody> response=call.execute();
+		return response.isSuccessful();
+	}
+	
+
+	public boolean actualizarMedicos(Medico existente) throws IOException {
+		Call<ResponseBody> call=client.getDatabase().actualizarMedicos(existente);
+		Response<ResponseBody> response=call.execute();
+		return response.isSuccessful();
+	}
+	
+	public boolean eliminarMedicos(String carnet) throws IOException {
+		Call<ResponseBody> call=client.getDatabase().eliminarMedicos(carnet);
 		Response<ResponseBody> response=call.execute();
 		return response.isSuccessful();
 	}

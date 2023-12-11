@@ -1,4 +1,4 @@
-package com.example.aplication.medicos;
+package com.example.aplication.medicosview;
 
 
 import com.vaadin.flow.component.Component;
@@ -102,15 +102,38 @@ public class MedicosView extends Div implements MedicosViewModel, BeforeEnterObs
         if (medico == null) {
             closeEditor();
         } else {
-           //form.setPaciente(paciente);//aqui llenamos el formulario con los datos del paciente pero como no me funciono lo hice con todos los campos
+
            form.carnet.setValue(medico.getCarnet());
            form.nombre.setValue(medico.getNombre());
            form.telefono.setValue(medico.getTelefono());
            form.correo.setValue(medico.getCorreo());
            form.especialidad.setValue(medico.getEspecialidad());
                    
-           
+           String carnet=form.carnet.getValue();
            form.setVisible(true);
+           
+           form.update.addClickListener(e->{
+           	Medico existente=new Medico();
+           	existente.setCarnet(form.carnet.getValue());
+     	   	existente.setNombre(form.nombre.getValue());
+     	   	existente.setTelefono(form.telefono.getValue());
+     	   	existente.setCorreo(form.correo.getValue().toString());
+     	   	existente.setEspecialidad(form.especialidad.getValue());
+     	   		
+           	       	  
+           	controlador.actualizarMedicos(existente);
+           	controlador.consultarMedicos();
+           	  
+             });
+           
+           form.borrar.addClickListener(e->{
+        	   String carnetActual=form.carnet.getValue();
+         	   controlador.eliminarMedicos(carnetActual);
+         	   controlador.consultarMedicos();
+           });
+           
+           
+           
             addClassName("editing");
         }
     }
@@ -123,7 +146,7 @@ public class MedicosView extends Div implements MedicosViewModel, BeforeEnterObs
         Button addMedicoButton = new Button("Agregar Medico");
         addMedicoButton.setId("addMedico");
         addMedicoButton.addClickListener(click -> addMedico());
-        var toolbar = new HorizontalLayout(filterText, addMedicoButton); 
+        var toolbar = new HorizontalLayout(addMedicoButton); 
         toolbar.addClassName("toolbar"); 
         return toolbar;
     }
@@ -167,7 +190,6 @@ public class MedicosView extends Div implements MedicosViewModel, BeforeEnterObs
 	public static void nuevoMedico(Medico medico) {
 	    try {
 	        controlador.crearMedico(medico);
-	        // Después de agregar el médico, vuelve a consultar la lista de médicos y actualiza el Grid
 	        controlador.consultarMedicos();
 	    } catch (Exception ex) {
 	        ex.printStackTrace();

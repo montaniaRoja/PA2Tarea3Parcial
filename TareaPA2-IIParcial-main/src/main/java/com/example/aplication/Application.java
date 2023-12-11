@@ -15,7 +15,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-@Theme(value = "flowcrmtutorial")
+@Theme(value = "flowcrmtutorial",variant=Lumo.DARK)
+
+
+
 public class Application implements AppShellConfigurator {
 
     private static final long serialVersionUID = 1L;

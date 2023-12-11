@@ -1,4 +1,4 @@
-package com.example.aplication.pacientes;
+package com.example.aplication.pacientesview;
 
 import java.util.List;
 
